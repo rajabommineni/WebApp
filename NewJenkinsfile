@@ -8,7 +8,7 @@
             agent any
             steps {
               withSonarQubeEnv('sonar') {
-                sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://104.42.183.37:9000/ -Dsonar.login=admin -Dsonar.sources=. -Dsonar.tests=. -Dsonar.test.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.exclusions=**/test/java/servlet/createpage_junit.java'
+                sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://104.42.183.37:9000/ -Dsonar.login=af52da9943d6e68ddb4d5a1e2ca07246e4496a94 -Dsonar.sources=. -Dsonar.tests=. -Dsonar.test.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.exclusions=**/test/java/servlet/createpage_junit.java'
               }
             }
           }
