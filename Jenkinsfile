@@ -11,6 +11,16 @@ node {
     stage('Clone sources') {
         git url: 'https://github.com/rajabommineni/webapp.git'
     }
+   
+    stage('Static Code Analysis'){
+       withSonarQubeEnv {
+	    sh "./gradlew clean sonarqube"
+       }	       
+    }
+	
+    stage('Build Source Code'){
+	buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean package'
+    }
 
     stage('Artifactory configuration') {
         // Tool name from Jenkins configuration
