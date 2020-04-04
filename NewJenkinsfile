@@ -16,12 +16,12 @@ pipeline {
         stage ('Static Code Analysis') {
 	   steps {
 	        sh "mvn sonar:sonar -Dsonar.host.url=http://104.42.183.37:9000"
-		sonar.sources=.
-		sonar.tests=.
-		sonar.inclusions=**/test/java/servlet/createpage_junit.java
-		sonar.test.exclusions=**/test/java/servlet/createpage_junit.java
-		sonar.login=admin
-		sonar.password=admin
+		-Dsonar.sources=.
+		-Dsonar.tests=.
+		-Dsonar.inclusions=**/test/java/servlet/createpage_junit.java
+		-Dsonar.test.exclusions=**/test/java/servlet/createpage_junit.java
+		-Dsonar.login=admin
+		-Dsonar.password=admin
        	  }  
         }
         stage ('Build') { 
