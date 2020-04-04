@@ -3,6 +3,7 @@ pipeline {
     tools { 
         maven 'maven' 
         jdk 'jdk' 
+	sonar 'sonar'
     }
     stages { 
         stage ('Initialize') {
@@ -13,19 +14,17 @@ pipeline {
                 ''' 
             }
         }
-        stage('Static Code Analysis'){
+        stage ('Static Code Analysis') {
 	   steps {
-            withSonarQubeEnv('sonar') {
-	        'sonar.sources=.' +
+                'sonar.sources=.' +
                 'sonar.tests=.' +
                 'sonar.inclusions=**/test/java/servlet/createpage_junit.java' +
                 'sonar.test.exclusions=**/test/java/servlet/createpage_junit.java' +
                 'sonar.login=admin' +
                 'sonar.password=admin' 
-            }	
-	  }  
+       	  }  
         }
-        stage('Build') { 
+        stage ('Build') { 
             steps { 
                echo 'This is a minimal pipeline.' 
                sh 'mvn clean package'               
