@@ -15,12 +15,12 @@ pipeline {
         }
         stage('Static Code Analysis'){
             withSonarQubeEnv('sonar') {
-	            'sonar.sources=.' +
+	        'sonar.sources=.' +
                 'sonar.tests=.' +
                 'sonar.inclusions=**/test/java/servlet/createpage_junit.java' +
                 'sonar.test.exclusions=**/test/java/servlet/createpage_junit.java' +
                 'sonar.login=admin' +
-                'sonar.password=admin' +
+                'sonar.password=admin' 
             }	       
         }
         stage('Build') { 
