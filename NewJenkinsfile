@@ -15,7 +15,7 @@ pipeline {
         }
         stage ('Static Code Analysis') {
 	   steps {
-	        sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
+	        sh "mvn sonar:sonar -Dsonar.host.url=http://104.42.183.37:9000"
        	  }  
         }
         stage ('Build') { 
