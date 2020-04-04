@@ -3,8 +3,7 @@ pipeline {
     tools { 
         maven 'maven' 
         jdk 'jdk' 
-	sonar 'sonar'
-    }
+   }
     stages { 
         stage ('Initialize') {
             steps {
@@ -16,12 +15,7 @@ pipeline {
         }
         stage ('Static Code Analysis') {
 	   steps {
-                'sonar.sources=.' +
-                'sonar.tests=.' +
-                'sonar.inclusions=**/test/java/servlet/createpage_junit.java' +
-                'sonar.test.exclusions=**/test/java/servlet/createpage_junit.java' +
-                'sonar.login=admin' +
-                'sonar.password=admin' 
+	        sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
        	  }  
         }
         stage ('Build') { 
