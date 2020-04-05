@@ -42,13 +42,17 @@ pipeline {
             }
         }
 	stage ('Build Docker Image'){
-		sh 'docker build -t rajabops/WebApp:1.0.0 .'
+		steps {
+			sh 'docker build -t rajabops/WebApp:1.0.0 .'
+		}
 	}
 	stage ('Push Docker Image') {
-		withCredentials([string(credentialsId: 'dockerpwd', variable: 'docker-password')]) {
- 	   		sh "docker login -u rajabops -p ${docker-password}"
-		}
+		steps {
+			withCredentials([string(credentialsId: 'dockerpwd', variable: 'docker-password')]) {
+ 	   			sh "docker login -u rajabops -p ${docker-password}"
+			}		
 		sh 'docker push rajabops/WebApp:1.0.0'
+		}
 	}
 
     }
