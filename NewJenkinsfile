@@ -25,12 +25,24 @@ pipeline {
         }
         stage ('Build') { 
             steps { 
-               echo 'This is a minimal pipeline.' 
-               sh 'mvn clean package'               
+               echo 'Compiling source code' 
+               sh 'mvn clean'
+	       sh 'mvn compile'
             }
             post {
                 success {
                     junit 'target/surefire-reports/**/*.xml' 
+                }
+            }
+        }
+	stage ('Deply to QA') { 
+            steps { 
+               echo 'Deploying to QA Environment' 
+               sh 'mvn clean package'               
+            }
+            post {
+                success {
+                    echo 'Deployed to QA' 
                 }
             }
         }
