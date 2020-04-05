@@ -29,11 +29,6 @@ pipeline {
                sh 'mvn clean'
 	       sh 'mvn compile'
             }
-            post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml' 
-                }
-            }
         }
 	stage ('Deply to QA') { 
             steps { 
@@ -42,7 +37,7 @@ pipeline {
             }
             post {
                 success {
-                    echo 'Deployed to QA' 
+                    junit 'target/surefire-reports/**/*.xml'
                 }
             }
         }
