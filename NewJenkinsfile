@@ -13,16 +13,7 @@ pipeline {
                 ''' 
             }
         }
-        stage ('Static Code Analysis') {
-	   steps {
-              script {
-                def scannerHome = tool 'sonar';
-                withSonarQubeEnv("sonar") {
-                	sh "${tool("sonar")}/bin/sonar-scanner"
-                }
-              }
-          }     	  
-        }
+
         stage ('Build') { 
             steps { 
                echo 'Compiling source code' 
