@@ -41,5 +41,9 @@ pipeline {
                 }
             }
         }
+	stage ('Trail QA Deploy')  {
+     		echo "deploying to QA Env "  
+		deploy adapters: [tomcat7(credentialsId: 'jenkins', path: '', url: 'http://18.223.132.254:8080')], contextPath: '/QAWeb', war: '**/*.war'
+	}
     }
 }
