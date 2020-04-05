@@ -37,23 +37,10 @@ pipeline {
             }
             post {
                 success {
-                    deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://18.223.132.254:8080/')], contextPath: '/QAWeb', war: '**/*.war'
+                    deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://18.223.132.254:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
                 }
             }
         }
-	stage ('Build Docker Image'){
-		steps {
-			sh 'docker build -t rajabops/webapp:1.0.0 .'
-		}
-	}
-	stage ('Push Docker Image') {
-		steps {
-			withCredentials([string(credentialsId: 'dockerpwd', variable: 'docker-password')]) {
- 	   			sh "docker login -u rajabops -p ${docker-password}"
-			}		
-		sh 'docker push rajabops/webapp:1.0.0'
-		}
-	}
-
+	
     }
 }
