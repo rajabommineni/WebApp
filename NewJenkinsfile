@@ -44,7 +44,7 @@ pipeline {
 	stage ('Trail QA Deploy')  {
 	    steps {
      		echo "deploying to QA Env "  
-		deploy adapters: [tomcat7(credentialsId: '4c55fae1-a02d-4b82-ba34-d262176eeb46', path: '', url: 'http://18.223.132.254:8080')], contextPath: '/QAWeb', war: '**/*.war'
+		deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://18.223.132.254:8080/')], contextPath: '/QAWeb', war: '**/*.war'
 	    }
 	}
     }
