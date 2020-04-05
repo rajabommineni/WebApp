@@ -13,7 +13,6 @@ pipeline {
                 ''' 
             }
         }
-
         stage ('Build') { 
             steps { 
                echo 'Compiling source code' 
@@ -28,15 +27,10 @@ pipeline {
             }
             post {
                 success {
-                    junit 'target/surefire-reports/**/*.xml'
+                    deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://18.223.132.254:8080/')], contextPath: '/QAWeb', war: '**/*.war'
                 }
             }
         }
-	stage ('Trail QA Deploy')  {
-	    steps {
-     		echo "deploying to QA Env "  
-		deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://18.223.132.254:8080/')], contextPath: '/QAWeb', war: '**/*.war'
-	    }
-	}
+
     }
 }
