@@ -12,6 +12,12 @@ pipeline {
 		    url: "https://rajadevops.jfrog.io/artifactory",
 		    credentialsId: 'jfrog' 
                 )
+		rtMavenDeployer (
+                    id: "MAVEN_DEPLOYER",
+                    serverId: "artifactory",
+                    releaseRepo: "libs-release-local",
+                    snapshotRepo: "libs-snapshot-local"
+                )
            }
         }
     }
