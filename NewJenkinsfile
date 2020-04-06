@@ -55,7 +55,7 @@ pipeline {
             steps {
                 rtServer (
                     id: "artifactory"
-                    url: https://rajadevops.jfrog.io/artifactory,
+                    url: https://rajadevops.jfrog.io/artifactory
                 )
 
                 rtMavenDeployer (
