@@ -75,7 +75,11 @@
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
-				</plugin>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.5</version>
+			</plugin>
 				
 		</plugins>
 	</build>
