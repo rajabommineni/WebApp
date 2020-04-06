@@ -54,21 +54,20 @@ pipeline {
         stage ('Artifactory configuration') {
             steps {
                 rtServer (
-                    id: "ARTIFACTORY_SERVER"
-                    url: SERVER_URL,
-                    credentialsId: CREDENTIALS
+                    id: "artifactory"
+                    url: https://rajadevops.jfrog.io/artifactory,
                 )
 
                 rtMavenDeployer (
                     id: "MAVEN_DEPLOYER",
-                    serverId: "ARTIFACTORY_SERVER",
+                    serverId: "artifactory",
                     releaseRepo: "libs-release-local",
                     snapshotRepo: "libs-snapshot-local"
                 )
 
                 rtMavenResolver (
                     id: "MAVEN_RESOLVER",
-                    serverId: "ARTIFACTORY_SERVER",
+                    serverId: "artifactory",
                     releaseRepo: "libs-release",
                     snapshotRepo: "libs-snapshot"
                 )
@@ -77,7 +76,7 @@ pipeline {
 	stage ('Exec Maven') {
             steps {
                 rtMavenRun (
-                    tool: MAVEN_TOOL, // Tool name from Jenkins configuration
+                    tool: maven, // Tool name from Jenkins configuration
                     pom: 'pom.xml',
                     goals: 'clean install',
                     deployerId: "MAVEN_DEPLOYER",
@@ -88,7 +87,7 @@ pipeline {
         stage ('Publish build info') {
             steps {
                 rtPublishBuildInfo (
-                    serverId: "ARTIFACTORY_SERVER"
+                    serverId: "artifactory"
                 )
             }
         }
