@@ -41,6 +41,15 @@ pipeline {
                 }
             }
         }
-	
+	stage ('Functional Testing') { 
+            steps { 
+           	sh 'mvn -f functionaltest/pom.xml clean test'               
+            }
+            post {
+                success {
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '\\functionaltest\\target\\surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
+                }
+            }
+        }
     }
 }
