@@ -5,53 +5,7 @@ pipeline {
         jdk 'jdk' 
    }
     stages { 
-        stage ('Initialize') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-                ''' 
-            }
-        }
-	stage ('Static Code Analysis') {
-	   steps {
-              script {
-                def scannerHome = tool 'sonar';
-                withSonarQubeEnv("sonar") {
-                	sh "${tool("sonar")}/bin/sonar-scanner"
-                }
-              }
-          }     	  
-        }
-        stage ('Build') { 
-            steps { 
-               echo 'Compiling source code' 
-               sh 'mvn clean'
-	       sh 'mvn compile'
-            }
-        }
-	stage ('Deply to QA') { 
-            steps { 
-               echo 'Deploying to QA Environment' 
-               sh 'mvn clean package'               
-            }
-            post {
-                success {
-                    deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://18.223.132.254:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
-                }
-            }
-        }
-	stage ('Functional Testing') { 
-            steps { 
-           	sh 'mvn -f functionaltest/pom.xml clean test'               
-            }
-            post {
-                success {
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '\\functionaltest\\target\\surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
-                }
-            }
-        }
-        stage ('Artifactory configuration') {
+       stage ('Artifactory configuration') {
             steps {
                 rtServer (
                     id: "artifactory",
